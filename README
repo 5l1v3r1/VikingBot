@@ -8,7 +8,7 @@
 The following commands are supported out of the box
 (aka they are not controlled via plugins):
 
-!quit [password]	-	Shuts down the bot
+!exit [password]	-	Shuts down the bot
 !restart [password]	-	Restarts the bot
 
 The following commands are supported via the plugins that 
