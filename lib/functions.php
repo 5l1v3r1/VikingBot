@@ -127,3 +127,12 @@ function logMsg($msg) {
 function doRestart() {
 	die(exec('sh start.sh > /dev/null &'));
 }
+
+/**
+ * Write a notice to channel/user
+ */ 
+function sendNotice($socket, $channel, $msg) {
+	if(strlen($msg) > 2) { //Avoid sending empty lines to server, since all data should contain a line break, 2 chars is minimum
+		sendData($socket, "NOTICE {$channel} :{$msg}");
+	}
+}
