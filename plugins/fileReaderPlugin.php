@@ -14,12 +14,14 @@ class fileReaderPlugin implements pluginInterface {
 	var $db = 'db/fileReaderOutput.db';
 	var $lastCheck;
 	var $config;
+	var $startTime;
 
         function init($config, $socket) {
 		$this->channel = $config['plugins']['fileReader']['channel'];
 		$this->socket = $socket;
 		$this->lastCheck = 0;
 		$this->config = $config;
+		$this->startTime = time();
 		if(!is_file($this->db)) {
 			touch($this->db);
 		}
@@ -29,6 +31,11 @@ class fileReaderPlugin implements pluginInterface {
         }
 
         function tick() {
+
+		if((time() - $this->config['waitTime']) < $this->startTime) {
+			return;
+		}
+
 		if($this->lastCheck < time()) {
 			clearstatcache();
 			if(filemtime($this->db) >= $this->lastCheck) {

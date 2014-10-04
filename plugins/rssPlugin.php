@@ -37,7 +37,7 @@ class rssPlugin implements pluginInterface {
 		}
 
 		//Start pollings feeds that should be updated after 20 seconds to get the bot in to any channels etc
-		if(($this->started + 30) < time()) {
+		if(($this->started + $this->config['waitTime']) < time()) {
 			$this->parseFeeds();
 		}
 
