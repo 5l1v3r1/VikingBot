@@ -5,28 +5,26 @@
  * restarts it so it can start up with the new version
  * This plugin requires access to "git pull" so all files
  * should be owned by the user that is running the bot
- * 
+ *
  * You can start an upgrade via the command !upgrade [admin password]
  */
 class upgradePlugin implements pluginInterface {
 
-	var $config;
-	var $socket;
+	var $config, $socket;
 
-        function init($config, $socket) {
+	function init($config, $socket) {
 		$this->config = $config;
 		$this->socket = $socket;
-        }
+	}
 
-        function tick() {
+	function tick() {
+	}
 
-        }
+	function onData($data) {
+	}
 
-        function onData($data) {
-        }
-
-        function onMessage($from, $channel, $msg) {
-                if(stringStartsWith($msg, "{$this->config['trigger']}upgrade")) {
+	function onMessage($from, $channel, $msg) {
+		if(stringStartsWith($msg, "{$this->config['trigger']}upgrade")) {
 			$bits = explode(" ", $msg);
 			$pass = $bits[1];
 			if(strlen($this->config['adminPass']) > 0 && $pass != $this->config['adminPass']) {
@@ -40,13 +38,12 @@ class upgradePlugin implements pluginInterface {
 					sendMessage($this->socket, $channel, "{$from}: {$response}");
 					sendMessage($this->socket, $channel, "{$from}: Restarting...");
 					sendData($this->socket, 'QUIT :Restarting due to upgrade');
-					die(exec('sh start.sh > /dev/null &'));	
+					die(exec('sh start.sh > /dev/null &'));
 				}
 			}
-                }
-        }
+		}
+	}
 
-        function destroy() {
-
-        }
+	function destroy() {
+	}
 }

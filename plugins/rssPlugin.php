@@ -7,14 +7,9 @@
 **/
 class rssPlugin implements pluginInterface {
 
-	var $lastCleanTime;
-	var $socket;
-	var $started;
-	var $todo;
-	var $config;
-	var $lastMsgSent;
+	var $lastCleanTime, $socket, $started, $todo, $config, $lastMsgSent;
 
-        function init($config, $socket) {
+	function init($config, $socket) {
 		$this->config = $config;
 		$this->todo = array();
 		$this->rssConfig = $config['plugins']['rssReader'];
@@ -24,11 +19,10 @@ class rssPlugin implements pluginInterface {
 		$this->cleanFeedDB();
 	}
 
-        function onData($data) {
-        }
+	function onData($data) {
+	}
 
-        function tick() {
-
+	function tick() {
 		//Clean up the RSS database each hour
 		if(($this->lastCleanTime + 3600) < time()) {
 			logMsg("rssPlugin: Cleaning RSS DB");
@@ -45,20 +39,18 @@ class rssPlugin implements pluginInterface {
 		if(count($this->todo) > 0) {
 			if(time() > ($this->lastMsgSent + 5)) {
 				$row = array_pop($this->todo);
-		                sendMessage($this->socket, $row[0], $row[1]);
+						sendMessage($this->socket, $row[0], $row[1]);
 				$this->lastMsgSent = time();
 			}
 		}
 
-        }
+	}
 
-        function onMessage($from, $channel, $msg) {
+	function onMessage($from, $channel, $msg) {
+	}
 
-        }
-
-        function destroy() {
-
-        }
+	function destroy() {
+	}
 
 	/**
 	 * Makes sure that the RSS database is sane
@@ -66,12 +58,12 @@ class rssPlugin implements pluginInterface {
 	function controlFeedDB() {
 		if(is_file("db/rssPlugin.db") == false) {
 			$h = fopen("db/rssPlugin.db", 'w+') or die("db folder is not writable!");
-			fclose($h);	
+			fclose($h);
 		}
 	}
 
 	/**
-	 l Parses RSS feeds for new content
+	 * Parses RSS feeds for new content
 	 */
 	function parseFeeds() {
 		foreach($this->rssConfig as $feed) {
@@ -81,10 +73,10 @@ class rssPlugin implements pluginInterface {
 				try {
 					$content = file_get_contents($feed['url']);
 					$x = new SimpleXmlElement($content);
-				
+
 					//RSS feed format
 					if(isset($x->channel)) {
-						foreach($x->channel->item as $entry) { 
+						foreach($x->channel->item as $entry) {
 							$this->saveEntry($feed['title'], $feed['channel'], $entry->title, $entry->link);
 						}
 					} else {
@@ -95,7 +87,7 @@ class rssPlugin implements pluginInterface {
 							}
 						}
 					}
-					$content = null;	
+					$content = null;
 					$x = null;
 				}catch(Exception $e) {
 					logMsg($e->getMessage());
@@ -108,7 +100,6 @@ class rssPlugin implements pluginInterface {
 	 * Saves (if needed) RSS entries
 	 */
 	function saveEntry($feedTitle, $feedChannel, $elementTitle, $elementLink) {
-
 		//nl2br wont kill all linebreaks, "magic.."
 		$elementTitle = preg_replace('/[\r\n]+/', '', $elementTitle);
 

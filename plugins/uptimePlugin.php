@@ -6,30 +6,27 @@
  */
 class uptimePlugin implements pluginInterface {
 
-	var $socket;
-	var $startTime;
-	var $config;
+	var $socket, $startTime, $config;
 
-        function init($config, $socket) {
+	function init($config, $socket) {
 		$this->startTime = new DateTime();
 		$this->socket = $socket;
 		$this->config = $config;
 	}
 
-        function onData($data) {
-        }
-
-        function tick() {
-
+	function onData($data) {
 	}
 
-        function onMessage($from, $channel, $msg) {
+	function tick() {
+	}
+
+	function onMessage($from, $channel, $msg) {
 		if(stringEndsWith($msg, "{$this->config['trigger']}uptime")) {
 			sendMessage($this->socket, $channel, $from.": I have been running for ".$this->makeNiceTimeString($this->startTime->diff(new DateTime())));
 		}
 	}
 
-        function destroy() {
+	function destroy() {
 		$this->socket = null;
 	}
 
