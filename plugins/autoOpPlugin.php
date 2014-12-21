@@ -6,6 +6,9 @@ class autoOpPlugin implements pluginInterface {
 	var $socket;
 
         function init($config, $socket) {
+			if (!isset($config['plugins']['autoOp'])) {
+				$config['plugins']['autoOp'] = array();
+			}
     		$this->config = $config;
     		$this->socket = $socket;
             $this->autoOpConfig = $config['plugins']['autoOp'];
@@ -21,7 +24,7 @@ class autoOpPlugin implements pluginInterface {
 
         function onData($data) {
 
-            if ($this->autoOpConfig['mode']) {
+            if (isset($this->autoOpConfig['mode']) && $this->autoOpConfig['mode']) {
 
                 if (strpos($data,'JOIN :') !== false) {
                     $bits = explode(" ", $data);
