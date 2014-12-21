@@ -51,6 +51,7 @@ class VikingBot {
 			if(stringEndsWith($file, '.php')) {
 				require('plugins/'.$file);
 				$pName = str_replace('.php', '', $file);
+				$pName = str_replace('.thirdparty', '', $pName);
 				$this->plugins[] = new $pName();
 			}
 		}
