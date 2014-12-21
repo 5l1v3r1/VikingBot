@@ -1,5 +1,9 @@
 <?php
 
+if(!is_file("config.php")) {
+	die("You have not created a config.php yet.\n");
+}
+
 require("config.php");
 require("lib/functions.php");
 require("lib/pluginInterface.php");
@@ -8,10 +12,6 @@ set_time_limit(0);
 error_reporting(E_ALL);
 date_default_timezone_set('GMT');
 declare(ticks = 1);
-
-if(!is_file("config.php")) {
-	die("You have not created a config.php yet.\n");
-}
 
 set_error_handler("errorHandler");
 
