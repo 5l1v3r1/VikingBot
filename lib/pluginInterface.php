@@ -5,8 +5,8 @@ interface pluginInterface {
 	/**
 	 * Called when plugins are loaded
 	 *
-	 * @param string $config
-	 * @param string $socket
+	 * @param mixed[]	$config
+	 * @param resource 	$socket
 	 */
 	function init($config, $socket);
 
