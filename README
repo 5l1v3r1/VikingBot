@@ -74,3 +74,7 @@ PS: Different IRC-clients may display colors differently, some servers even deny
 ========== BUGS/PROBLEMS? ==========
 Feel free to contact me via IRC on EfNet/Freenode/Undernet (Ueland)
 or via e-mail: tor.henning AT gmail.com.
+
+========== THIRD-PARTY PLUGINS ==========
+Links to other plugins for VikingBot:
+- Doorway/plugin for Roundup Issue Tracker	https://gist.github.com/3295338
