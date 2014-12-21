@@ -1,18 +1,30 @@
 <?php
 
 $config = array(
-	'server'		=> 'servername',	//Server name, prefix it with "ssl://" in order to use SSL server
-	'port'			=> 6666,		//Server port
-	'channel'		=> '#vikingbot',	//Channel to join, use array('channel1', 'channel2') for multiple channels
-	'name'			=> 'vikingbot',		//Name of the bot
-	'nick'			=> 'vikingbot',		//Nick of the bot
-	'pass'			=> '',			//Server password
-	'waitTime'		=> 10,			//How many seconds to wait before joining channel after connecting to server
-	'adminPass'		=> 'vikingbot',		//Bot admin password, used for commands like !exit (!exit vikingbot)
-	'memoryLimit'		=> '128',		//Max memory the bot can use, in MB
-	'memoryRestart'		=> '10',		//Min memory usage, in MB. (The bot will try to clear RAM or restart if reached)
-	'trigger'		=> '!',			//What character should be used as bot command prefixes
-	'maxPerTenMin'		=> 50			//Max messgages a user can send per 10 minutes before beeing ignored for that time
+		//Server name, prefix it with "ssl://" in order to use SSL server
+	'server'        => 'servername',
+		//Server port
+	'port'          => 6666,
+		//Channel to join, use array('channel1', 'channel2') for multiple channels
+	'channel'       => '#vikingbot',
+		//Name of the bot
+	'name'          => 'vikingbot',
+		//Nick of the bot
+	'nick'          => 'vikingbot',
+		//Server password
+	'pass'          => '',
+		//How many seconds to wait before joining channel after connecting to server
+	'waitTime'      => 10,
+		//Bot admin password, used for commands like !exit (!exit vikingbot)
+	'adminPass'     => 'vikingbot',
+		//Max memory the bot can use, in MB
+	'memoryLimit'   => '128',
+		//Min memory usage, in MB. (The bot will try to clear RAM or restart if reached)
+	'memoryRestart' => '10',
+		//What character should be used as bot command prefixes
+	'trigger'       => '!',
+		//Max messgages a user can send per 10 minutes before beeing ignored for that time
+	'maxPerTenMin'  => 50
 );
 
 //=====================================
