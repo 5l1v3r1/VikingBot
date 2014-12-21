@@ -1,5 +1,6 @@
 <?php
 
+require("config.dist.php");
 require("config.php");
 require("lib/functions.php");
 require("lib/pluginInterface.php");
