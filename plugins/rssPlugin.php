@@ -15,6 +15,9 @@ class rssPlugin implements pluginInterface {
 	var $lastMsgSent;
 
         function init($config, $socket) {
+		if (!isset($config['plugins']['rssReader'])) {
+			$config['plugins']['rssReader'] = array();
+		}
 		$this->config = $config;
 		$this->todo = array();
 		$this->rssConfig = $config['plugins']['rssReader'];
