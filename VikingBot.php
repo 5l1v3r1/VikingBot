@@ -49,12 +49,11 @@ class VikingBot {
 		$pluginsRecDirIterator = new RecursiveDirectoryIterator('plugins');
 		foreach (new RecursiveIteratorIterator($pluginsRecDirIterator) as $filename) {
 			if(stringEndsWith($filename, '.php')) {
-				$pName = explode(DIRECTORY_SEPARATOR, $filename);
-				$pName = $pName[count($pName) - 1];
-				$pName = str_replace('.php', '', $pName);
-				$pName = str_replace('.thirdparty', '', $pName);
-				if (strpos(file_get_contents($filename), "class " . $pName . " implements pluginInterface") !== false) {
+				$content = file_get_contents($filename);
+				if (preg_match("/class (.+) implements pluginInterface/", $content, $matches)) {
+					$pName = $matches[1];
 					require($filename);
+					logMsg("Loading plugin " . $pName);
 					$this->plugins[] = new $pName();
 				}
 			}
