@@ -227,7 +227,7 @@ class VikingBot {
 	}
 
 	function signalHandler($signal) {
-		sendData($this->socket, "QUIT :Caught signal {$signal}, shutting down");
+		$this->prepareShutdown("QUIT :Caught signal {$signal}, shutting down");
 		logMsg("Caught {$signal}, shutting down\n");
 		exit();
 	}
