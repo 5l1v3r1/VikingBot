@@ -17,13 +17,9 @@ set_error_handler("errorHandler");
 
 class VikingBot {
 
-	var $socket;
+	// $floodDb: Internal database over user activity to keep flodders away
+	var $socket, $startTime, $plugins, $config, $lastMemCheckTime, $floodDb;
 	var $inChannel = false;
-	var $startTime;
-	var $plugins;
-	var $config;
-	var $lastMemCheckTime;
-	var $floodDb; //Internal database over user activity to keep flodders away
 
 	function __construct($config) {
 
@@ -75,17 +71,17 @@ class VikingBot {
 
 			//Join channels if not already joined
 			if( !$this->inChannel && (time() - $this->config['waitTime']) > $this->startTime ) {
-        	                $this->joinChannel($this->config['channel']);
-                	        sleep(2);
-                		$this->inChannel = true;
+				$this->joinChannel($this->config['channel']);
+				sleep(2);
+				$this->inChannel = true;
 			}
-	
+
 			//Run scheduled memory check
 			if(time() - 600 > $this->lastMemCheckTime) {
 				$this->lastMemCheckTime = time();
-				$this->doMemCheck();	
+				$this->doMemCheck();
 			}
-		
+
 			//Tick plugins
 			foreach($this->plugins as $plugin) {
 				$plugin->tick();
@@ -111,18 +107,18 @@ class VikingBot {
 					if(isset($bits[2])) {
 						$chan = trim($bits[2]);
 					}
-			
+
 					if(isset($chan[0]) && $chan[0] != '#') {
 						$chan = $from;
 					}
-	
+
 					if(isset($bits[3])) {
 						$cmd = trim($bits[3]);
 						switch($cmd) {
 							case ":{$this->config['trigger']}exit":
 								$this->shutdown($bits[4], $from, $chan);
 							break;
-		
+
 							case ":{$this->config['trigger']}restart":
 								$this->restart($bits[4], $from, $chan);
 							break;
@@ -131,14 +127,14 @@ class VikingBot {
 					}
 
 					if($bits[1] == 'PRIVMSG') {
-		
+
 						$msg = @substr($bits[3], 1);
 						for($i=4; $i<count($bits); $i++) {
-								$msg .= ' '.$bits[$i];
+							$msg .= ' '.$bits[$i];
 						}
 						$msg = trim($msg);
 						foreach($this->plugins as $plugin) {
-							$plugin->onMessage($from, $chan, $msg);	
+							$plugin->onMessage($from, $chan, $msg);
 						}
 						$msg = null;
 					} else {
@@ -160,7 +156,6 @@ class VikingBot {
 	}
 
 	function doMemCheck() {
-
 		//Run garbage collection
 		gc_collect_cycles();
 		$memFree = ((($this->config['memoryLimit']*1024)*1024) - memory_get_usage());
@@ -180,30 +175,29 @@ class VikingBot {
 			sendData($this->socket, "JOIN {$channel}");
 		}
 	}
-	
+
 
 	function restart($pass, $from, $chan) {
 		if(!$this->correctAdminPass($pass)) {
-                        sendMessage($this->socket, $chan, "{$from}: Wrong password");
-                        return false;
-                }
+			sendMessage($this->socket, $chan, "{$from}: Wrong password");
+			return false;
+		}
 		sendMessage($this->socket, $chan, "{$from}: Restarting...");
 		$this->prepareShutdown("");
 		doRestart();
 	}
-	
+
 	function prepareShutdown($msg) {
 		if(strlen($msg) == 0) {
 			$msg = "VikingBot - https://github.com/Ueland/VikingBot";
 		}
-                sendData($this->socket, "QUIT :{$msg}");
-                foreach($this->plugins as $plugin) {
-                        $plugin->destroy();
-                }
+		sendData($this->socket, "QUIT :{$msg}");
+		foreach($this->plugins as $plugin) {
+			$plugin->destroy();
+		}
 	}
 
 	function shutdown($pass, $from, $chan) {
-
 		if(!$this->correctAdminPass($pass)) {
 			sendMessage($this->socket, $chan, "{$from}: Wrong password");
 			return false;

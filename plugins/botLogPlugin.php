@@ -5,26 +5,23 @@
  */
 class botLogPlugin implements pluginInterface {
 
-        var $socket;
-	var $config;
+	var $socket, $config;
 
-        function init($config, $socket) {
-                $this->socket = $socket;
+	function init($config, $socket) {
+		$this->socket = $socket;
 		$this->config = $config;
-        }
+	}
 
-        function tick() {
+	function tick() {
 
-        }
+	}
 
-        function onData($data) {
-        }
+	function onData($data) {
+	}
 
-        function onMessage($from, $channel, $msg) {
-
+	function onMessage($from, $channel, $msg) {
 		//Only trigger on !botlog
 		if(stringStartsWith($msg, "{$this->config['trigger']}botlog")) {
-
 			//Get hold of number of rows to show and possible password
 			$tmp = explode(" ", $msg);
 			$pass = '';
@@ -34,15 +31,14 @@ class botLogPlugin implements pluginInterface {
 			} else if(count($tmp) == 2) {
 				$limit = $tmp[1];
 			}
-		
+
 			if(!is_numeric($limit)){
 				$limit = 10;
 			}
 
-			 if(strlen($this->config['adminPass']) > 0 && $pass != $this->config['adminPass']) {
-                                sendMessage($this->socket, $channel, "{$from}: Wrong password");
-                        } else {
-
+			if(strlen($this->config['adminPass']) > 0 && $pass != $this->config['adminPass']) {
+				sendMessage($this->socket, $channel, "{$from}: Wrong password");
+			} else {
 				//Password auth ok, display log data
 				sendMessage($this->socket, $channel, "{$from}: Last {$limit} entries from bot log:");
 				$logdata = file('logs/vikingbot.log');
@@ -55,10 +51,10 @@ class botLogPlugin implements pluginInterface {
 				sendMessage($this->socket, $channel, "------------");
 			}
 		}
-        }
+	}
 
-        function destroy() {
-                $this->socket = null;
+	function destroy() {
+		$this->socket = null;
 		$this->config = null;
-        }
+	}
 }
