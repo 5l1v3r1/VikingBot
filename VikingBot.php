@@ -42,12 +42,16 @@ class VikingBot {
 
 	function loadPlugins() {
 		$this->plugins = array();
-		$handle = opendir('plugins');
-		while (false !== ($file = readdir($handle))) {
-			if(stringEndsWith($file, '.php')) {
-				require('plugins/'.$file);
-				$pName = str_replace('.php', '', $file);
-				$this->plugins[] = new $pName();
+		$pluginsRecDirIterator = new RecursiveDirectoryIterator('plugins');
+		foreach (new RecursiveIteratorIterator($pluginsRecDirIterator) as $filename) {
+			if(stringEndsWith($filename, '.php')) {
+				$content = file_get_contents($filename);
+				if (preg_match("/class (.+) implements pluginInterface/", $content, $matches)) {
+					$pName = $matches[1];
+					require($filename);
+					logMsg("Loading plugin " . $pName);
+					$this->plugins[] = new $pName();
+				}
 			}
 		}
 		foreach($this->plugins as $plugin) {
