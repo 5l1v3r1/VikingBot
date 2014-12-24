@@ -10,7 +10,7 @@ The following commands are supported out of the box
 
 !exit [password]	-	Shuts down the bot
 !restart [password]	-	Restarts the bot
-!help [command]		-	Sends a list of commands or the description of a given command to the user
+!help [command] 	-	Sends a list of commands or the description of a given command to the user
 
 The following commands are supported via the plugins that
 is installed per default:
