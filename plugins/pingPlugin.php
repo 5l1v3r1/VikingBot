@@ -6,28 +6,26 @@
  */
 class pingPlugin implements pluginInterface {
 
-	var $socket;
-	var $config;
+	var $socket, $config;
 
-        function init($config, $socket) {
+	function init($config, $socket) {
 		$this->socket = $socket;
 		$this->config = $config;
 	}
 
-        function onData($data) {
-        }
-
-        function tick() {
-
+	function onData($data) {
 	}
 
-        function onMessage($from, $channel, $msg) {
+	function tick() {
+	}
+
+	function onMessage($from, $channel, $msg) {
 		if(stringEndsWith($msg, "{$this->config['trigger']}ping")) {
 			sendMessage($this->socket, $channel, $from.": Pong");
 		}
 	}
 
-        function destroy() {
+	function destroy() {
 		$this->socket = null;
 	}
 }
