@@ -13,6 +13,18 @@ class pingPlugin implements pluginInterface {
 		$this->config = $config;
 	}
 
+	/**
+	 * @return array[]
+	 */
+	function help() {
+		return array(
+			array(
+				'command'     => 'ping',
+				'description' => 'Returns PONG.'
+			)
+		);
+	}
+
 	function onData($data) {
 	}
 

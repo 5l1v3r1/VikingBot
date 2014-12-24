@@ -19,6 +19,13 @@ class rssPlugin implements pluginInterface {
 		$this->cleanFeedDB();
 	}
 
+	/**
+	 * @return array
+	 */
+	function help() {
+		return array();
+	}
+
 	function onData($data) {
 	}
 

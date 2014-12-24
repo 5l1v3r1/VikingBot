@@ -17,6 +17,18 @@ class upgradePlugin implements pluginInterface {
 		$this->socket = $socket;
 	}
 
+	/**
+	 * @return array[]
+	 */
+	function help() {
+		return array(
+			array(
+				'command'     => 'upgrade [adminPassword]',
+				'description' => 'Upgrades the bot via git pull.'
+			)
+		);
+	}
+
 	function tick() {
 	}
 

@@ -12,6 +12,18 @@ class memoryPlugin implements pluginInterface {
 		$this->socket = $socket;
 	}
 
+	/**
+	 * @return array[]
+	 */
+	function help() {
+		return array(
+			array(
+				'command'     => 'memory',
+				'description' => 'Responds with information about memory usage.'
+			)
+		);
+	}
+
 	function tick() {
 	}
 

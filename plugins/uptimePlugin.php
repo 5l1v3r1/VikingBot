@@ -14,6 +14,18 @@ class uptimePlugin implements pluginInterface {
 		$this->config = $config;
 	}
 
+	/**
+	 * @return array[]
+	 */
+	function help() {
+		return array(
+			array(
+				'command'     => 'uptime',
+				'description' => 'Responds with the bot\'s uptime.'
+			)
+		);
+	}
+
 	function onData($data) {
 	}
 
