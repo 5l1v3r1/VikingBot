@@ -10,6 +10,7 @@ The following commands are supported out of the box
 
 !exit [password]	-	Shuts down the bot
 !restart [password]	-	Restarts the bot
+!help [command]     -   Sends a list of commands or the description of a given command to the user
 
 The following commands are supported via the plugins that
 is installed per default:
@@ -30,7 +31,7 @@ fileReaderPlugin:
 	channel
 
 botLogPlugin:
-	- Plugin that responds to a "!log" with the last N rows of the bot`s log file
+	- Plugin that responds to a "!botlog" with the last N rows of the bot's log file
 
 memoryPlugin:
 	- Plugin that responds to a "!memory" with information about memory usage
