@@ -4,7 +4,7 @@
 $config['server']        = 'servername';
 		//Server port
 $config['port']          = 6666;
-		//Channel to join; use array('channel1'; 'channel2') for multiple channels
+		//Channel to join; use array('#channel1'; '#channel2') for multiple channels
 $config['channel']       = '#vikingbot';
 		//Name of the bot
 $config['name']          = 'vikingbot';
