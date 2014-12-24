@@ -30,22 +30,22 @@ $config['maxPerTenMin']  = 50;
 //=====================================
 
 //RSS Reader
-$config['plugins']['rssReader'] = array(
-		array('title'=> 'VG',		'url'=>'http://www.vg.no/rss/nyfront.php?frontId=1',	'pollInterval'=>15,	'channel'=>'#vikingbot'),
-		array('title'=> 'BBC News',	'url'=>'http://feeds.bbci.co.uk/news/rss.xml',			'pollInterval'=>15,	'channel'=>'#vikingbot'),
-		array('title'=> 'CNN',		'url'=>'http://rss.cnn.com/rss/edition.rss',			'pollInterval'=>15,	'channel'=>'#vikingbot'),
-);
+//$config['plugins']['rssReader'] = array(
+//		array('title'=> 'VG',		'url'=>'http://www.vg.no/rss/nyfront.php?frontId=1',	'pollInterval'=>15,	'channel'=>'#vikingbot'),
+//		array('title'=> 'BBC News',	'url'=>'http://feeds.bbci.co.uk/news/rss.xml',			'pollInterval'=>15,	'channel'=>'#vikingbot'),
+//		array('title'=> 'CNN',		'url'=>'http://rss.cnn.com/rss/edition.rss',			'pollInterval'=>15,	'channel'=>'#vikingbot'),
+//);
 
 //File reader
-$config['plugins']['fileReader'] = array(
-		'channel' => '#vikingbot',
-);
+//$config['plugins']['fileReader'] = array(
+//		'channel' => '#vikingbot',
+//);
 
 //Auto Op
-$config['plugins']['autoOp'] = array(
-		'mode'	  => '0', // autop mode, 0 = disabled, 1 = only configured users, 2 = autoop everyone
-		'channel' => array(
-				'#channel1'	=> array('nick1','nick2','nick3','nick4','nick5','nick6','nick7','nick8'),
-				'#channel2'	=> array('ueland','ernini')
-		),
-);
+//$config['plugins']['autoOp'] = array(
+//		'mode'	  => '0', // autop mode, 0 = disabled, 1 = only configured users, 2 = autoop everyone
+//		'channel' => array(
+//				'#channel1'	=> array('nick1','nick2','nick3','nick4','nick5','nick6','nick7','nick8'),
+//				'#channel2'	=> array('ueland','ernini')
+//		),
+//);
