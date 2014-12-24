@@ -28,11 +28,11 @@ class VikingBot {
 		),
 		array(
 			'command'     => 'exit [adminPassword]',
-			'description' => 'Shuts down the bot'
+			'description' => 'Shuts down the bot.'
 		),
 		array(
 			'command'     => 'restart [adminPassword]',
-			'description' => 'Restarts the bot'
+			'description' => 'Restarts the bot.'
 		)
 	);
 
