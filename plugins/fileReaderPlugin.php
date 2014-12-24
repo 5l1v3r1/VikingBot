@@ -3,20 +3,17 @@
 /**
  * Plugin that outputs any content from the file db/fileReaderOutput.db
  * to the channel specified. When the content is read the file is truncated.
- * 
+ *
  * If you have SVn commit hooks etc you want to get content from they should
  * pipe their data into this file.
  */
 class fileReaderPlugin implements pluginInterface {
 
-	var $socket;
+	var $socket, $lastCheck, $config, $startTime;
 	var $channel = '';
-	var $db = 'db/fileReaderOutput.db';
-	var $lastCheck;
-	var $config;
-	var $startTime;
+	var $db      = 'db/fileReaderOutput.db';
 
-        function init($config, $socket) {
+	function init($config, $socket) {
 		if (!isset($config['plugins']['fileReader'])) {
 			$config['plugins']['fileReader'] = array('channel' => '');
 		}
@@ -30,11 +27,10 @@ class fileReaderPlugin implements pluginInterface {
 		}
 	}
 
-        function onData($data) {
-        }
+	function onData($data) {
+	}
 
-        function tick() {
-
+	function tick() {
 		if((time() - $this->config['waitTime']) < $this->startTime) {
 			return;
 		}
@@ -53,13 +49,13 @@ class fileReaderPlugin implements pluginInterface {
 				$h = null;
 			}
 			$this->lastCheck = time();
-		}	
+		}
 	}
 
-        function onMessage($from, $channel, $msg) {
+	function onMessage($from, $channel, $msg) {
 	}
 
-        function destroy() {
+	function destroy() {
 		$this->socket = null;
 	}
 }
