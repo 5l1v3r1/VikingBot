@@ -54,6 +54,12 @@ upgradePlugin:
 autoOpPlugin:
 	- Plugin that gives +o to everyone or to certain nicks on channel join.
 
+========== THIRD-PARTY PLUGINS ==========
+Links to other plugins for VikingBot:
+- Doorway/plugin for Roundup Issue Tracker	https://gist.github.com/3295338
+
+Make sure to install your plugins into the thirdparty-plugins folder so git ignores them!
+
 ========== TEXT FORMATTING  ==========
 If you wish, you can format text the bot sends to a channel/user, via your plugins.
 Use any of the following codes to apply the relevant text color or format. The text will
@@ -74,7 +80,3 @@ PS: Different IRC-clients may display colors differently, some servers even deny
 ========== BUGS/PROBLEMS? ==========
 Feel free to contact me via IRC on EfNet/Freenode/Undernet (Ueland)
 or via e-mail: tor.henning AT gmail.com.
-
-========== THIRD-PARTY PLUGINS ==========
-Links to other plugins for VikingBot:
-- Doorway/plugin for Roundup Issue Tracker	https://gist.github.com/3295338
