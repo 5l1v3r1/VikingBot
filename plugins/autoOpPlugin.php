@@ -1,34 +1,18 @@
 <?php
 
-class autoOpPlugin implements pluginInterface {
+class autoOpPlugin extends basePlugin {
 
-	var $config, $socket;
+	private $autoOpConfig;
 
-	function init($config, $socket) {
+	public function __construct($config, $socket) {
 		if (!isset($config['plugins']['autoOp'])) {
 			$config['plugins']['autoOp'] = array();
 		}
-		$this->config = $config;
-		$this->socket = $socket;
+		parent::__construct($config, $socket);
 		$this->autoOpConfig = $config['plugins']['autoOp'];
 	}
 
-	/**
-	 * @return array
-	 */
-	function help() {
-		return array();
-	}
-
-	function tick() {
-
-	}
-
-	function onMessage($from, $channel, $msg) {
-
-	}
-
-	function onData($data) {
+	public function onData($data) {
 		if (isset($this->autoOpConfig['mode']) && $this->autoOpConfig['mode']) {
 			if (strpos($data,'JOIN :') !== false) {
 				$bits = explode(" ", $data);
@@ -44,10 +28,6 @@ class autoOpPlugin implements pluginInterface {
 				}
 			}
 		}
-	}
-
-	function destroy() {
-			$this->socket = null;
 	}
 
 }

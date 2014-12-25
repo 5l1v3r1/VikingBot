@@ -3,19 +3,12 @@
 /**
  * Plugin that responds with bot memory usage information
  */
-class memoryPlugin implements pluginInterface {
-
-	var $socket, $config;
-
-	function init($config, $socket) {
-		$this->config = $config;
-		$this->socket = $socket;
-	}
+class memoryPlugin extends basePlugin {
 
 	/**
 	 * @return array[]
 	 */
-	function help() {
+	public function help() {
 		return array(
 			array(
 				'command'     => 'memory',
@@ -24,13 +17,7 @@ class memoryPlugin implements pluginInterface {
 		);
 	}
 
-	function tick() {
-	}
-
-	function onData($data) {
-	}
-
-	function onMessage($from, $channel, $msg) {
+	public function onMessage($from, $channel, $msg) {
 		if(stringEndsWith($msg, "{$this->config['trigger']}memory")) {
 			$usedMem = round(((memory_get_usage() / 1024) / 1024),2);
 			$freeMem = round(($this->config['memoryLimit'] - $usedMem),2);
@@ -40,8 +27,4 @@ class memoryPlugin implements pluginInterface {
 		}
 	}
 
-	function destroy() {
-		$this->socket = null;
-		$this->config = null;
-	}
 }
