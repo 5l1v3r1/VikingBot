@@ -1,13 +1,6 @@
 <?php
 
-class opPlugin implements pluginInterface {
-
-	var $config, $socket;
-
-	function init($config, $socket) {
-		$this->config = $config;
-		$this->socket = $socket;
-	}
+class opPlugin extends basePlugin {
 
 	/**
 	 * @return array[]
@@ -19,12 +12,6 @@ class opPlugin implements pluginInterface {
 				'description' => 'Op\'s a user if the bot has op itself.'
 			)
 		);
-	}
-
-	function tick() {
-	}
-
-	function onData($data) {
 	}
 
 	function onMessage($from, $channel, $msg) {
@@ -47,7 +34,4 @@ class opPlugin implements pluginInterface {
 		}
 	}
 
-	function destroy() {
-
-	}
 }

@@ -3,7 +3,7 @@
 /**
  * This is an example skeleton for a Vikingbot plugin
  */
-class examplePlugin implements pluginInterface {
+class examplePlugin extends basePlugin {
 
 		/**
 		 * Called when plugins are loaded
@@ -11,7 +11,7 @@ class examplePlugin implements pluginInterface {
 		 * @param mixed[]	$config
 		 * @param resource 	$socket
 		**/
-		function init($config, $socket) {
+		public function __construct($config, $socket) {
 
 		}
 
@@ -22,7 +22,7 @@ class examplePlugin implements pluginInterface {
 		 *
 		 * @return array[]
 		 */
-		function help() {
+		public function help() {
 			return array(
 				array(
 					'command'     => 'exampleCommand <parameter> [optionalParameter]',
@@ -41,7 +41,7 @@ class examplePlugin implements pluginInterface {
 		 *
 		 * Put your jobs that needs to be run without user interaction here.
 		 */
-		function tick() {
+		public function tick() {
 
 		}
 
@@ -53,14 +53,7 @@ class examplePlugin implements pluginInterface {
 		 * @param string $channel
 		 * @param string $msg
 		 */
-		function onMessage($from, $channel, $msg) {
-
-		}
-
-		/**
-		 * Called when the bot is shutting down
-		 */
-		function destroy() {
+		public function onMessage($from, $channel, $msg) {
 
 		}
 
@@ -70,7 +63,14 @@ class examplePlugin implements pluginInterface {
 		 *
 		 * @param string $data
 		 */
-		function onData($data) {
+		public function onData($data) {
+
+		}
+
+		/**
+		 * Called when the bot is shutting down
+		 */
+		public function __destruct() {
 
 		}
 }

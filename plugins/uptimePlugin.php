@@ -4,20 +4,19 @@
  * Plugin that responds to "!uptime" messages with information
  * about how long the bot has been running.
  */
-class uptimePlugin implements pluginInterface {
+class uptimePlugin extends basePlugin {
 
-	var $socket, $startTime, $config;
+	private $startTime;
 
-	function init($config, $socket) {
+	public function __construct($config, $socket) {
+		parent::__construct($config, $socket);
 		$this->startTime = new DateTime();
-		$this->socket = $socket;
-		$this->config = $config;
 	}
 
 	/**
 	 * @return array[]
 	 */
-	function help() {
+	public function help() {
 		return array(
 			array(
 				'command'     => 'uptime',
@@ -26,23 +25,13 @@ class uptimePlugin implements pluginInterface {
 		);
 	}
 
-	function onData($data) {
-	}
-
-	function tick() {
-	}
-
-	function onMessage($from, $channel, $msg) {
+	public function onMessage($from, $channel, $msg) {
 		if(stringEndsWith($msg, "{$this->config['trigger']}uptime")) {
 			sendMessage($this->socket, $channel, $from.": I have been running for ".$this->makeNiceTimeString($this->startTime->diff(new DateTime())));
 		}
 	}
 
-	function destroy() {
-		$this->socket = null;
-	}
-
-	function makeNiceTimeString($r) {
+	private function makeNiceTimeString($r) {
 		if($r->m > 0) {
 			return "{$r->m} months, {$r->d} days, {$r->h} hours, {$r->i} minutes & {$r->s} seconds";
 		} else if($r->d > 0) {

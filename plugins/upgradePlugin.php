@@ -8,19 +8,12 @@
  *
  * You can start an upgrade via the command !upgrade [admin password]
  */
-class upgradePlugin implements pluginInterface {
-
-	var $config, $socket;
-
-	function init($config, $socket) {
-		$this->config = $config;
-		$this->socket = $socket;
-	}
+class upgradePlugin extends basePlugin {
 
 	/**
 	 * @return array[]
 	 */
-	function help() {
+	public function help() {
 		return array(
 			array(
 				'command'     => 'upgrade [adminPassword]',
@@ -29,13 +22,7 @@ class upgradePlugin implements pluginInterface {
 		);
 	}
 
-	function tick() {
-	}
-
-	function onData($data) {
-	}
-
-	function onMessage($from, $channel, $msg) {
+	public function onMessage($from, $channel, $msg) {
 		if(stringStartsWith($msg, "{$this->config['trigger']}upgrade")) {
 			$bits = explode(" ", $msg);
 			$pass = $bits[1];
@@ -56,6 +43,4 @@ class upgradePlugin implements pluginInterface {
 		}
 	}
 
-	function destroy() {
-	}
 }

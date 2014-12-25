@@ -7,37 +7,25 @@
  * If you have SVn commit hooks etc you want to get content from they should
  * pipe their data into this file.
  */
-class fileReaderPlugin implements pluginInterface {
+class fileReaderPlugin extends basePlugin {
 
-	var $socket, $lastCheck, $config, $startTime;
-	var $channel = '';
-	var $db      = 'db/fileReaderOutput.db';
+	private $lastCheck, $startTime, $channel;
+	private $db = 'db/fileReaderOutput.db';
 
-	function init($config, $socket) {
-		if (!isset($config['plugins']['fileReader'])) {
+	public function __construct($config, $socket) {
+		if (!isset($config['plugins']['fileReader']['channel'])) {
 			$config['plugins']['fileReader'] = array('channel' => '');
 		}
 		$this->channel = $config['plugins']['fileReader']['channel'];
-		$this->socket = $socket;
+		parent::__construct($config, $socket);
 		$this->lastCheck = 0;
-		$this->config = $config;
 		$this->startTime = time();
 		if(!is_file($this->db)) {
 			touch($this->db);
 		}
 	}
 
-	/**
-	 * @return array
-	 */
-	function help() {
-		return array();
-	}
-
-	function onData($data) {
-	}
-
-	function tick() {
+	public function tick() {
 		if((time() - $this->config['waitTime']) < $this->startTime) {
 			return;
 		}
@@ -59,10 +47,4 @@ class fileReaderPlugin implements pluginInterface {
 		}
 	}
 
-	function onMessage($from, $channel, $msg) {
-	}
-
-	function destroy() {
-		$this->socket = null;
-	}
 }
