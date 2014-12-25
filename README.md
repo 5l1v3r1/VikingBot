@@ -4,7 +4,7 @@ The bot requires Unix/Linux shell access with PHP and SSL support in PHP for use
 
 ### INSTALLING
 1. copy config.dist.php to config.php `cp config.dist.php config.php`
-2. update config.php with correct settings `nano config.php`
+2. update config.php with correct settings `nano config.php` (undeclared settings will be declared by config.dist.php)
 3. run the start script `sh start.sh`
 4. check log output `cat logs/vikingbot.log`
 

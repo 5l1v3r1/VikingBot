@@ -4,6 +4,7 @@ if(!is_file("config.php")) {
 	die("You have not created a config.php yet.\n");
 }
 
+require("config.dist.php");
 require("config.php");
 require("lib/functions.php");
 require("lib/basePlugin.php");
