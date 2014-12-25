@@ -5,9 +5,19 @@ class autoOpPlugin implements pluginInterface {
 	var $config, $socket;
 
 	function init($config, $socket) {
+		if (!isset($config['plugins']['autoOp'])) {
+			$config['plugins']['autoOp'] = array();
+		}
 		$this->config = $config;
 		$this->socket = $socket;
 		$this->autoOpConfig = $config['plugins']['autoOp'];
+	}
+
+	/**
+	 * @return array
+	 */
+	function help() {
+		return array();
 	}
 
 	function tick() {
@@ -19,7 +29,7 @@ class autoOpPlugin implements pluginInterface {
 	}
 
 	function onData($data) {
-		if ($this->autoOpConfig['mode']) {
+		if (isset($this->autoOpConfig['mode']) && $this->autoOpConfig['mode']) {
 			if (strpos($data,'JOIN :') !== false) {
 				$bits = explode(" ", $data);
 				$nick = getNick(@$bits[0]);

@@ -14,6 +14,9 @@ class fileReaderPlugin implements pluginInterface {
 	var $db      = 'db/fileReaderOutput.db';
 
 	function init($config, $socket) {
+		if (!isset($config['plugins']['fileReader'])) {
+			$config['plugins']['fileReader'] = array('channel' => '');
+		}
 		$this->channel = $config['plugins']['fileReader']['channel'];
 		$this->socket = $socket;
 		$this->lastCheck = 0;
@@ -22,6 +25,13 @@ class fileReaderPlugin implements pluginInterface {
 		if(!is_file($this->db)) {
 			touch($this->db);
 		}
+	}
+
+	/**
+	 * @return array
+	 */
+	function help() {
+		return array();
 	}
 
 	function onData($data) {

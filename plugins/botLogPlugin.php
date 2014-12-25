@@ -12,6 +12,18 @@ class botLogPlugin implements pluginInterface {
 		$this->config = $config;
 	}
 
+	/**
+	 * @return array[]
+	 */
+	function help() {
+		return array(
+			array(
+				'command'     => 'botlog [adminPassword] [limit=10]',
+				'description' => 'Responds with the last N rows of the bot\'s log file.'
+			)
+		);
+	}
+
 	function tick() {
 
 	}

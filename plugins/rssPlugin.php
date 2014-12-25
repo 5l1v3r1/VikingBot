@@ -10,6 +10,9 @@ class rssPlugin implements pluginInterface {
 	var $lastCleanTime, $socket, $started, $todo, $config, $lastMsgSent;
 
 	function init($config, $socket) {
+		if (!isset($config['plugins']['rssReader'])) {
+			$config['plugins']['rssReader'] = array();
+		}
 		$this->config = $config;
 		$this->todo = array();
 		$this->rssConfig = $config['plugins']['rssReader'];
@@ -17,6 +20,13 @@ class rssPlugin implements pluginInterface {
 		$this->socket = $socket;
 		$this->controlFeedDB();
 		$this->cleanFeedDB();
+	}
+
+	/**
+	 * @return array
+	 */
+	function help() {
+		return array();
 	}
 
 	function onData($data) {
