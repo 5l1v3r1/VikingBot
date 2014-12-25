@@ -14,6 +14,9 @@ class fileReaderPlugin implements pluginInterface {
 	var $db      = 'db/fileReaderOutput.db';
 
 	function init($config, $socket) {
+		if (!isset($config['plugins']['fileReader'])) {
+			$config['plugins']['fileReader'] = array('channel' => '');
+		}
 		$this->channel = $config['plugins']['fileReader']['channel'];
 		$this->socket = $socket;
 		$this->lastCheck = 0;
