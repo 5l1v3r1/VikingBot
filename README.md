@@ -17,7 +17,7 @@ The following commands are supported out of the box (aka they are not controlled
 The following commands are supported via the plugins that
 is installed per default:
 
-* `!botlog [adminPassword] [rows]` The bot responds with the [rows] last rows of the bot log file (default: 10 rows)
+* `!botlog [adminPassword] [rows=10]` The bot responds with the [rows] last rows of the bot log file
 * `!memory` The bot responds with memory usage statistics
 * `!ping` The bot responds with a pong to say that it is still alive
 * `!uptime` The bot responds with the bots uptime
@@ -63,7 +63,7 @@ keep the given format until either end of string, or the {reset} tag.
 {reset}, {bold} & {underline}
 
 **Example:**<br/>
-"{bold}**i am bold and **{red}**red**{reset}, but now i am normal"
+"{bold}**i am bold and** {red}**red**{reset}, but now i am normal"
 
 PS: Different IRC-clients may display colors differently, some servers even deny color use!
 
