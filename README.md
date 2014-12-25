@@ -32,7 +32,7 @@ The following plugins are installed by default:
 * memoryPlugin
 	* Plugin that responds to `!memory` with information about memory usage
 * opPlugin
-	* Plugin that respons to `!op ...` by oping a user if the bot has op itsefl
+	* Plugin that respons to `!op ...` by oping a user if the bot has op itself
 * pingPlugin
 	* Plugin that responds to `!ping` with a "PONG".
 * uptimePlugin
