@@ -5,34 +5,23 @@
  * at specified intervalls and outputs changes
  * to the specified channel.
 **/
-class rssPlugin implements pluginInterface {
+class rssPlugin extends basePlugin {
 
-	var $lastCleanTime, $socket, $started, $todo, $config, $lastMsgSent;
+	private $lastCleanTime, $started, $todo, $lastMsgSent;
 
-	function init($config, $socket) {
+	public function __construct($config, $socket) {
 		if (!isset($config['plugins']['rssReader'])) {
 			$config['plugins']['rssReader'] = array();
-		}
-		$this->config = $config;
+		};
+		parent::__construct($config, $socket);
 		$this->todo = array();
 		$this->rssConfig = $config['plugins']['rssReader'];
 		$this->started = time();
-		$this->socket = $socket;
 		$this->controlFeedDB();
 		$this->cleanFeedDB();
 	}
 
-	/**
-	 * @return array
-	 */
-	function help() {
-		return array();
-	}
-
-	function onData($data) {
-	}
-
-	function tick() {
+	public function tick() {
 		//Clean up the RSS database each hour
 		if(($this->lastCleanTime + 3600) < time()) {
 			logMsg("rssPlugin: Cleaning RSS DB");
@@ -56,16 +45,10 @@ class rssPlugin implements pluginInterface {
 
 	}
 
-	function onMessage($from, $channel, $msg) {
-	}
-
-	function destroy() {
-	}
-
 	/**
 	 * Makes sure that the RSS database is sane
 	 */
-	function controlFeedDB() {
+	private function controlFeedDB() {
 		if(is_file("db/rssPlugin.db") == false) {
 			$h = fopen("db/rssPlugin.db", 'w+') or die("db folder is not writable!");
 			fclose($h);
@@ -75,7 +58,7 @@ class rssPlugin implements pluginInterface {
 	/**
 	 * Parses RSS feeds for new content
 	 */
-	function parseFeeds() {
+	private function parseFeeds() {
 		foreach($this->rssConfig as $feed) {
 			if(!isset($this->lastCheck[$feed['url']]) || ($this->lastCheck[$feed['url']] + ($feed['pollInterval'] *60) < time())) {
 				$this->lastCheck[$feed['url']] = time();
@@ -109,7 +92,7 @@ class rssPlugin implements pluginInterface {
 	/**
 	 * Saves (if needed) RSS entries
 	 */
-	function saveEntry($feedTitle, $feedChannel, $elementTitle, $elementLink) {
+	private function saveEntry($feedTitle, $feedChannel, $elementTitle, $elementLink) {
 		//nl2br wont kill all linebreaks, "magic.."
 		$elementTitle = preg_replace('/[\r\n]+/', '', $elementTitle);
 
@@ -133,7 +116,7 @@ class rssPlugin implements pluginInterface {
 	/**
 	 * Removes old content from the RSS DB
 	 */
-	function cleanFeedDB() {
+	private function cleanFeedDB() {
 		$data = file("db/rssPlugin.db");
 		$data = array_reverse($data);
 		if(count($data) > 7500) {

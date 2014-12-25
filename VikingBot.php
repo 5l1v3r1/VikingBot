@@ -6,7 +6,7 @@ if(!is_file("config.php")) {
 
 require("config.php");
 require("lib/functions.php");
-require("lib/pluginInterface.php");
+require("lib/basePlugin.php");
 
 set_time_limit(0);
 error_reporting(E_ALL);
@@ -61,21 +61,18 @@ class VikingBot {
 		foreach (new RecursiveIteratorIterator($pluginsRecDirIterator) as $filename) {
 			if(stringEndsWith($filename, '.php')) {
 				$content = file_get_contents($filename);
-				if (preg_match("/class (.+) implements pluginInterface/", $content, $matches)) {
+				if (preg_match("/class (.+) extends basePlugin/", $content, $matches)) {
 					$pName = $matches[1];
-					require($filename);
+					require_once($filename);
 					logMsg("Loading plugin " . $pName);
-					$this->plugins[] = new $pName();
+					$this->plugins[] = new $pName($this->config, $this->socket);
 				}
 			}
 		}
 		foreach($this->plugins as $plugin) {
-			$plugin->init($this->config, $this->socket);
-			if (method_exists($plugin, 'help')) {
-				$pluginHelpData = $plugin->help();
-				if (isset($pluginHelpData[0]['command'])) {
-					$this->helpData = array_merge($this->helpData, $pluginHelpData);
-				}
+			$pluginHelpData = $plugin->help();
+			if (isset($pluginHelpData[0]['command'])) {
+				$this->helpData = array_merge($this->helpData, $pluginHelpData);
 			}
 		}
 	}
@@ -229,9 +226,6 @@ class VikingBot {
 			$msg = "VikingBot - https://github.com/Ueland/VikingBot";
 		}
 		sendData($this->socket, "QUIT :{$msg}");
-		foreach($this->plugins as $plugin) {
-			$plugin->destroy();
-		}
 	}
 
 	function shutdown($pass, $from, $chan) {
@@ -241,7 +235,7 @@ class VikingBot {
 		}
 		sendMessage($this->socket, $chan, "{$from}: Shutting down...");
 		$this->prepareShutdown("");
-		exit;
+		exit();
 	}
 
 	function help($from, $channel, $command = "") {

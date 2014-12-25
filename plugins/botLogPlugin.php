@@ -3,19 +3,12 @@
 /**
  * Plugin that returns the N last row of the bot`s log file
  */
-class botLogPlugin implements pluginInterface {
-
-	var $socket, $config;
-
-	function init($config, $socket) {
-		$this->socket = $socket;
-		$this->config = $config;
-	}
+class botLogPlugin extends basePlugin {
 
 	/**
 	 * @return array[]
 	 */
-	function help() {
+	public function help() {
 		return array(
 			array(
 				'command'     => 'botlog [adminPassword] [limit=10]',
@@ -24,14 +17,7 @@ class botLogPlugin implements pluginInterface {
 		);
 	}
 
-	function tick() {
-
-	}
-
-	function onData($data) {
-	}
-
-	function onMessage($from, $channel, $msg) {
+	public function onMessage($from, $channel, $msg) {
 		//Only trigger on !botlog
 		if(stringStartsWith($msg, "{$this->config['trigger']}botlog")) {
 			//Get hold of number of rows to show and possible password
@@ -65,8 +51,4 @@ class botLogPlugin implements pluginInterface {
 		}
 	}
 
-	function destroy() {
-		$this->socket = null;
-		$this->config = null;
-	}
 }
