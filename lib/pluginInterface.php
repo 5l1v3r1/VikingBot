@@ -11,6 +11,15 @@ interface pluginInterface {
 	function init($config, $socket);
 
 	/**
+	 * Your plugin response to the help command.
+	 * If your plugin features no commands simply return an empty array,
+	 * or leave the function out.
+	 *
+	 * @return array[]
+	 */
+	function help();
+
+	/**
 	 * Called about twice per second or when there are
 	 * activity on the channel the bot are in.
 	 * put your jobs that needs to be run without user interaction here

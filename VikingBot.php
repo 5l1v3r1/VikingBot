@@ -21,6 +21,21 @@ class VikingBot {
 	var $socket, $startTime, $plugins, $config, $lastMemCheckTime, $floodDb;
 	var $inChannel = false;
 
+	var $helpData = array(
+		array(
+			'command'     => 'help [command]',
+			'description' => 'Sends a list of commands or the description of a given command to the user.'
+		),
+		array(
+			'command'     => 'exit [adminPassword]',
+			'description' => 'Shuts down the bot.'
+		),
+		array(
+			'command'     => 'restart [adminPassword]',
+			'description' => 'Restarts the bot.'
+		)
+	);
+
 	function __construct($config) {
 
 		//Add signal handlers to shut down the bot correctly if its getting killed
@@ -56,6 +71,12 @@ class VikingBot {
 		}
 		foreach($this->plugins as $plugin) {
 			$plugin->init($this->config, $this->socket);
+			if (method_exists($plugin, 'help')) {
+				$pluginHelpData = $plugin->help();
+				if (isset($pluginHelpData[0]['command'])) {
+					$this->helpData = array_merge($this->helpData, $pluginHelpData);
+				}
+			}
 		}
 	}
 
@@ -125,6 +146,14 @@ class VikingBot {
 
 							case ":{$this->config['trigger']}restart":
 								$this->restart($bits[4], $from, $chan);
+							break;
+
+							case ":{$this->config['trigger']}help":
+								if (isset($bits[4])) {
+									$this->help($from, $chan, $bits[4]);
+								} else {
+									$this->help($from, $chan);
+								}
 							break;
 						}
 						$cmd = null;
@@ -213,6 +242,31 @@ class VikingBot {
 		sendMessage($this->socket, $chan, "{$from}: Shutting down...");
 		$this->prepareShutdown("");
 		exit;
+	}
+
+	function help($from, $channel, $command = "") {
+		$command = trim($command);
+		if (empty($command)) {
+			if ($channel != $from) {
+				sendMessage($this->socket, $channel, $from . ': Sending you ' . (count($this->helpData)-1) . ' commands by PM.');
+			}
+			foreach ($this->helpData as $commandArray) {
+				sendMessage($this->socket, $from, $commandArray['command'] . " - " . $commandArray['description']);
+			}
+		} else {
+			$commandFound = false;
+			foreach ($this->helpData as $commandArray) {
+				$split = explode(" ", $commandArray['command']);
+				if ($split[0] == $command) {
+					sendMessage($this->socket, $channel, $from . ": " . $commandArray['command'] . " - " . $commandArray['description']);
+					$commandFound = true;
+					break;
+				}
+			}
+			if ($commandFound === false) {
+				sendMessage($this->socket, $channel, $from . ": This command doesn't exist!");
+			}
+		}
 	}
 
 	function correctAdminPass($pass) {

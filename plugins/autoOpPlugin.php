@@ -13,6 +13,13 @@ class autoOpPlugin implements pluginInterface {
 		$this->autoOpConfig = $config['plugins']['autoOp'];
 	}
 
+	/**
+	 * @return array
+	 */
+	function help() {
+		return array();
+	}
+
 	function tick() {
 
 	}

@@ -9,6 +9,18 @@ class opPlugin implements pluginInterface {
 		$this->socket = $socket;
 	}
 
+	/**
+	 * @return array[]
+	 */
+	function help() {
+		return array(
+			array(
+				'command'     => 'op <nick> <#channel> [adminPassword]',
+				'description' => 'Op\'s a user if the bot has op itself.'
+			)
+		);
+	}
+
 	function tick() {
 	}
 

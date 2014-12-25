@@ -27,6 +27,13 @@ class fileReaderPlugin implements pluginInterface {
 		}
 	}
 
+	/**
+	 * @return array
+	 */
+	function help() {
+		return array();
+	}
+
 	function onData($data) {
 	}
 
