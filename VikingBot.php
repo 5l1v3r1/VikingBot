@@ -64,9 +64,11 @@ class VikingBot {
 				$content = file_get_contents($filename);
 				if (preg_match("/class (.+) extends basePlugin/", $content, $matches)) {
 					$pName = $matches[1];
-					require_once($filename);
-					logMsg("Loading plugin " . $pName);
-					$this->plugins[] = new $pName($this->config, $this->socket);
+					if (!in_array($pName, $this->config['disabledPlugins'])) {
+						require_once($filename);
+						logMsg("Loading plugin " . $pName);
+						$this->plugins[] = new $pName($this->config, $this->socket);
+					}
 				}
 			}
 		}

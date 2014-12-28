@@ -29,6 +29,9 @@ $config['maxPerTenMin']  = 50;
 //Plugin specific configuration
 //=====================================
 
+//An array of disabled Plugins
+$config['disabledPlugins'] = array();
+
 //RSS Reader
 //$config['plugins']['rssReader'] = array(
 //		array('title'=> 'VG',		'url'=>'http://www.vg.no/rss/nyfront.php?frontId=1',	'pollInterval'=>15,	'channel'=>'#vikingbot'),
