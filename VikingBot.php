@@ -245,10 +245,12 @@ class VikingBot {
 		$command = trim($command);
 		if (empty($command)) {
 			if ($channel != $from) {
-				sendMessage($this->socket, $channel, $from . ': Sending you ' . (count($this->helpData)-1) . ' commands by PM.');
+				sendMessage($this->socket, $channel, $from . ': Sending you all available commands by PM.');
 			}
 			foreach ($this->helpData as $commandArray) {
-				sendMessage($this->socket, $from, $commandArray['command'] . " - " . $commandArray['description']);
+				if (in_array($from, $this->config['adminNicks']) || strpos(strtolower($commandArray['command']), 'password') === false) {
+					sendMessage($this->socket, $from, $commandArray['command'] . " - " . $commandArray['description']);
+				}
 			}
 		} else {
 			$commandFound = false;

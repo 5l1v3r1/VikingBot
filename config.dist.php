@@ -14,6 +14,8 @@ $config['nick']          = 'vikingbot';
 $config['pass']          = '';
 		//How many seconds to wait before joining channel after connecting to server
 $config['waitTime']      = 10;
+		//A list of admin nicks. This isn't used for authentification but for altering of the help command response.
+$config['adminNicks']    = array();
 		//Bot admin password; used for commands like !exit (!exit vikingbot)
 $config['adminPass']     = 'vikingbot';
 		//Max memory the bot can use; in MB
