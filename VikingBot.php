@@ -256,7 +256,7 @@ class VikingBot {
 			$commandFound = false;
 			foreach ($this->helpData as $commandArray) {
 				$split = explode(" ", $commandArray['command']);
-				if ($split[0] == $command) {
+				if ($split[0] == $command && (in_array($from, $this->config['adminNicks']) || strpos(strtolower($commandArray['command']), 'password') === false)) {
 					sendMessage($this->socket, $channel, $from . ": " . $commandArray['command'] . " - " . $commandArray['description']);
 					$commandFound = true;
 					break;
