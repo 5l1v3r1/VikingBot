@@ -1,11 +1,18 @@
 <?php
 
-if(!is_file("config.php")) {
-	die("You have not created a config.php yet.\n");
+parse_str(implode('&', array_slice($argv, 1)), $_GET);
+
+$configFile = 'config.php';
+if (isset($_GET['config'])) {
+	$configFile = trim($_GET['config']);
+}
+
+if(!is_file($configFile)) {
+	die("You have not created a " . $configFile . " yet.\n");
 }
 
 require("config.dist.php");
-require("config.php");
+require($configFile);
 require("lib/functions.php");
 require("lib/basePlugin.php");
 

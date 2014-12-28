@@ -1,2 +1,3 @@
-config.php
+*[cC]onfig*
+!config.dist.php
 logs/vikingbot.log

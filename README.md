@@ -8,6 +8,8 @@ The bot requires Unix/Linux shell access with PHP and SSL support in PHP for use
 3. run the start script `sh start.sh`
 4. check log output `cat logs/vikingbot.log`
 
+You can define different config files: `sh start.sh config=anotherConfigFile.php`
+
 ### SUPPORTED COMMANDS
 The following commands are supported out of the box (aka they are not controlled by plugins):
 * `!exit [adminPassword]` Shuts the bot down
