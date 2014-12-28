@@ -20,7 +20,7 @@ The following commands are supported via the plugins that are installed by defau
 * `!memory` The bot responds with memory usage statistics
 * `!ping` The bot responds with a pong to say that it is still alive
 * `!uptime` The bot responds with the it's uptime
-* `!upgrade [adminPassword]` The bot will attempt to upgrade itself to the latest version via `git pull`
+* `!upgrade [adminPassword]` The bot will attempt to upgrade itself and its plugins to the latest version via `git pull`
 * `!op <nick> <channel> [adminPassword]` The bot attempts to give *user* on *channel* OP status
 
 ### INSTALLED PLUGINS
@@ -40,7 +40,7 @@ The following plugins are installed by default:
 * rssPlugin
 	* Plugin that pulls RSS feeds at specified intervals and outputs new RSS elements to a specified channel
 * upgradePlugin
-    * Plugin that upgrades the bot via `git pull`
+    * Plugin that upgrades the bot and its plugins via `git pull`
 * autoOpPlugin
 	* Plugin that gives +o to everyone or to certain nicks on channel join.
 

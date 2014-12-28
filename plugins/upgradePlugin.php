@@ -17,7 +17,7 @@ class upgradePlugin extends basePlugin {
 		return array(
 			array(
 				'command'     => 'upgrade [adminPassword]',
-				'description' => 'Upgrades the bot via git pull.'
+				'description' => 'Upgrades the bot and its plugins via git pull.'
 			)
 		);
 	}
@@ -29,15 +29,39 @@ class upgradePlugin extends basePlugin {
 			if(strlen($this->config['adminPass']) > 0 && $pass != $this->config['adminPass']) {
 				sendMessage($this->socket, $channel, "{$from}: Wrong password");
 			} else {
-				sendMessage($this->socket, $channel, "{$from}: Starting upgrade...");
+				$restartRequired = false;
+				sendMessage($this->socket, $channel, "{$from}: Starting upgrade of bot and its plugins...");
+
 				$response = trim( shell_exec("git pull") );
-				if($response == 'Already up-to-date.') {
-					sendMessage($this->socket, $channel, "{$from}: The bot is already up to date, not restarting.");
-				} else {
-					sendMessage($this->socket, $channel, "{$from}: {$response}");
+				if (empty($response)) {
+					sendMessage($this->socket, $channel, "{$from}: Error upgrading core. Check permissions!");
+				} elseif($response != 'Already up-to-date.') {
+					$restartRequired = true;
+					sendMessage($this->socket, $channel, "{$from}: Upgrading core: {$response}");
+				}
+
+				$coreDir = getcwd();
+				$pluginsRecDirIterator = new RecursiveDirectoryIterator('./');
+				foreach (new RecursiveIteratorIterator($pluginsRecDirIterator) as $gitDir) {
+					if (stringEndsWith($gitDir, ".git/..")) {
+						chdir($gitDir);
+						$response = trim( shell_exec("git pull") );
+						if (empty($response)) {
+							sendMessage($this->socket, $channel, "{$from}: Error upgrading sub git. Check permissions!");
+						} elseif ($response != 'Already up-to-date.') {
+							$restartRequired = true;
+							sendMessage($this->socket, $channel, "{$from}: Upgrading sub git: {$response}");
+						}
+						chdir($coreDir);
+					}
+				}
+
+				if ($restartRequired) {
 					sendMessage($this->socket, $channel, "{$from}: Restarting...");
 					sendData($this->socket, 'QUIT :Restarting due to upgrade');
 					die(exec('sh start.sh > /dev/null &'));
+				} else {
+					sendMessage($this->socket, $channel, "{$from}: Everything up to date, not restarting.");
 				}
 			}
 		}
