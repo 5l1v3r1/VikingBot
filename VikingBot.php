@@ -55,7 +55,18 @@ class VikingBot {
 		$this->startTime = time();
 
 		ini_set("memory_limit", $this->config['memoryLimit']."M");
-		$this->socket = stream_socket_client("".$config['server'].":".$config['port']) or die("Connection error!");
+		if ($config['verifySSL']) {
+			$this->socket = stream_socket_client("".$config['server'].":".$config['port']) or die("Connection error!");
+		} else {
+			$socketContext = stream_context_create(array(
+				"ssl"=>array(
+					"verify_peer"       => false,
+					"verify_peer_name"  => false
+				),
+			));
+			$this->socket = stream_socket_client("".$config['server'].":".$config['port'], $errno, $errstr, 30,
+													STREAM_CLIENT_CONNECT, $socketContext) or die("Connection error!");
+		}
 		stream_set_blocking($this->socket, 0);
 		stream_set_timeout($this->socket, 600);
 		$this->login();

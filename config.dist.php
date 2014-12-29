@@ -4,6 +4,8 @@
 $config['server']        = 'servername';
 		//Server port
 $config['port']          = 6666;
+		//Should we verify the ssl certficate of the server?
+$config['verifySSL']     = true;
 		//Channel to join; use array('#channel1'; '#channel2') for multiple channels
 $config['channel']       = '#vikingbot';
 		//Name of the bot
