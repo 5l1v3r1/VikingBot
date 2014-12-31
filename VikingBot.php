@@ -26,8 +26,9 @@ set_error_handler("errorHandler");
 class VikingBot {
 
 	// $floodDb: Internal database over user activity to keep flodders away
-	var $socket, $startTime, $plugins, $config, $lastMemCheckTime, $floodDb;
-	var $inChannel = false;
+	var $socket, $startTime, $plugins, $config, $floodDb, $lastServerMessage;
+	var $inChannel         = false;
+	var $lastMemCheckTime  = 0;
 
 	var $helpData = array(
 		array(
@@ -50,9 +51,9 @@ class VikingBot {
 		pcntl_signal(SIGTERM, array($this, "signalHandler"));
 		pcntl_signal(SIGINT, array($this, "signalHandler"));
 
-		$this->config = $config;
-		$this->lastMemCheckTime = 0;
-		$this->startTime = time();
+		$this->config            = $config;
+		$this->startTime         = time();
+		$this->lastServerMessage = $this->startTime;
 
 		ini_set("memory_limit", $this->config['memoryLimit']."M");
 		if ($config['verifySSL']) {
@@ -133,6 +134,7 @@ class VikingBot {
 			//Load data from IRC server
 			$data = fgets($this->socket, 256);
 			if(strlen($data) > 0) {
+				$this->lastServerMessage = time();
 				logMsg("<Server to bot> ".$data);
 				$bits = explode(' ', $data);
 				if($bits[0] == 'PING') {
@@ -203,6 +205,13 @@ class VikingBot {
 				$bits = null;
 			}
 			$data = null;
+
+			if ($this->lastServerMessage < (time() - (60*10))) {
+				logMsg("Last server message/ping was >10min ago, going to restart the bot.");
+				$this->prepareShutdown("");
+				doRestart();
+			}
+
 		}
 	}
 
