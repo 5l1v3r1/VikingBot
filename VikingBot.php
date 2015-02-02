@@ -47,9 +47,13 @@ class VikingBot {
 
 	function __construct($config) {
 
-		//Add signal handlers to shut down the bot correctly if its getting killed
-		pcntl_signal(SIGTERM, array($this, "signalHandler"));
-		pcntl_signal(SIGINT, array($this, "signalHandler"));
+		if (extension_loaded("pcntl")) {
+			//Add signal handlers to shut down the bot correctly if its getting killed
+			pcntl_signal(SIGTERM, array($this, "signalHandler"));
+			pcntl_signal(SIGINT, array($this, "signalHandler"));
+		} else {
+			die("Please make sure the pcntl PHP extension is enabled.");
+		}
 
 		$this->config            = $config;
 		$this->startTime         = time();
