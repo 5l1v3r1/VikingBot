@@ -52,7 +52,7 @@ class VikingBot {
 			pcntl_signal(SIGTERM, array($this, "signalHandler"));
 			pcntl_signal(SIGINT, array($this, "signalHandler"));
 		} else {
-			die("Please make sure the pcntl PHP extension is enabled.");
+			die("Please make sure the pcntl PHP extension is enabled.\n");
 		}
 
 		$this->config            = $config;
