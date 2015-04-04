@@ -48,6 +48,7 @@ The following plugins are installed by default:
 
 ### THIRD-PARTY PLUGINS
 Links to other plugins for VikingBot:
+* [A NickServ authentication plugin](https://github.com/DasKaktus/VikingBot-NickAuth-Plugin)
 * [A doorway/plugin for Roundup Issue Tracker](https://gist.github.com/3295338)
 * [A plugin with various IMDB commands](https://github.com/hashworks/VikingBot-IMDB-Plugin)
 * [A plugin to check if a page is reachable using the popular isup.me website](https://github.com/hashworks/VikingBot-IsDown-Plugin)
