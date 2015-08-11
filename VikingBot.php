@@ -210,6 +210,10 @@ class VikingBot {
 			}
 			$data = null;
 
+			if ($this->lastServerMessage < (time() - (60*5))) {
+				sendData($this->socket, "PING {$this->config['server']}");
+			}
+
 			if ($this->lastServerMessage < (time() - (60*10))) {
 				logMsg("Last server message/ping was >10min ago, going to restart the bot.");
 				$this->prepareShutdown("");
