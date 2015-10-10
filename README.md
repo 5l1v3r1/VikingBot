@@ -74,4 +74,4 @@ If you wish, you can format text the bot sends to a channel/user  via your plugi
 PS: Different IRC-clients may display colors differently, some servers may even deny color usage!
 
 ### BUGS/PROBLEMS?
-Feel free to contact me via IRC on EfNet/Freenode/Undernet (Ueland) or via e-mail: tor.henning AT gmail.com.
+Feel free to contact me via IRC on EfNet/Freenode/Undernet (Ueland).
