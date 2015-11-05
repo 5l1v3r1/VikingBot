@@ -4,7 +4,7 @@
 $config['server']        = 'servername';
 		//Server port
 $config['port']          = 6666;
-		//Should we verify the ssl certficate of the server?
+		//Should we verify the ssl certificate of the server?
 $config['verifySSL']     = true;
 		//Channel to join; use array('#channel1'; '#channel2') for multiple channels
 $config['channel']       = '#vikingbot';
@@ -26,7 +26,7 @@ $config['memoryLimit']   = '128';
 $config['memoryRestart'] = '10';
 		//What character should be used as bot command prefixes
 $config['trigger']       = '!';
-		//Max messgages a user can send per 10 minutes before beeing ignored for that time
+		//Max messages a user can send per 10 minutes before being ignored for that time
 $config['maxPerTenMin']  = 50;
 
 //=====================================
@@ -50,7 +50,7 @@ $config['disabledPlugins'] = array();
 
 //Auto Op
 //$config['plugins']['autoOp'] = array(
-//		'mode'	  => '0', // autop mode, 0 = disabled, 1 = only configured users, 2 = autoop everyone
+//		'mode'	  => '0', // autoOp mode: 0 = disabled, 1 = only configured users, 2 = autoOp everyone
 //		'channel' => array(
 //				'#channel1'	=> array('nick1','nick2','nick3','nick4','nick5','nick6','nick7','nick8'),
 //				'#channel2'	=> array('ueland','ernini')
