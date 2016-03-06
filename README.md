@@ -56,6 +56,7 @@ Links to other plugins for VikingBot:
 * [A plugin which shows the title of posted YouTube links](https://github.com/hashworks/VikingBot-Youtube-Plugin)
 * [A plugin which converts posted gifs to gfycat/webm links](https://github.com/hashworks/VikingBot-Gfycat-Plugin)
 * [A plugin which checks for reposts of urls and credits the original poster](https://github.com/hashworks/VikingBot-RepostCheck-Plugin)
+* [A plugin for posting Twitter feed to IRC] (https://github.com/janesmae/VikingBot-Twitter-Plugin)
 
 Make sure to install your plugins into the thirdparty-plugins folder so git ignores them!
 
